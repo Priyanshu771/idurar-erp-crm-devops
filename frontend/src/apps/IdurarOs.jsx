@@ -63,9 +63,15 @@ export default function IdurarOs() {
 
   if (!isLoggedIn)
     return (
+      <>
+      <h1 style={{textAlign:'center', color:'red'}}>
+        🚀 CI/CD Test — Frontend Updated Successfully!
+      </h1>
+
       <Localization>
         <AuthRouter />
       </Localization>
+    </>
     );
   else {
     return <DefaultApp />;
