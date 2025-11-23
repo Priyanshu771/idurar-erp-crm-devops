@@ -65,3 +65,19 @@ jobs:
           context: ./frontend
           push: true
           tags: pk771/idurar-frontend:latest
+
+      # ---------------------- Slack Notifications ----------------------
+      - name: Slack Notification (Success)
+        if: success() && always()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"✅ CI/CD Pipeline Succeeded!"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Slack Notification (Failure)
+        if: failure() && always()
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"❌ CI/CD Pipeline Failed!"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
+
