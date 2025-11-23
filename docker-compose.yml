@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+      MONGO_INITDB_DATABASE: idurar_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - idurar-network
+
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "5000:8888"
+    environment:
+      NODE_ENV: production
+      MONGO_URI: mongodb://admin:password123@mongo:27017/idurar_db?authSource=admin
+    depends_on:
+      - mongo
+    networks:
+      - idurar-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - idurar-network
+
+networks:
+  idurar-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
