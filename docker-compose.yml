@@ -37,6 +37,10 @@ services:
       - "5173:80"
     depends_on:
       - backend
+    environment:
+      - VITE_BACKEND_SERVER=http://backend:8888/
+      - VITE_FILE_BASE_URL=http://backend:8888/
+      - PROD=true
     networks:
       - idurar-network
 
