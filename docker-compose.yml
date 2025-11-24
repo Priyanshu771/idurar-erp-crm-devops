@@ -35,6 +35,9 @@ services:
     container_name: frontend
     ports:
       - "5173:80"
+    environment:
+      VITE_BACKEND_SERVER: "http://192.168.0.10:5000/"
+      VITE_FILE_BASE_URL: "http://192.168.0.10:5000/"
     depends_on:
       - backend
     networks:
