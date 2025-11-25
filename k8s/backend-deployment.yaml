@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: idurar-prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: pk771/idurar-backend:latest
+          ports:
+            - containerPort: 8888
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: MONGO_URI
+              value: "mongodb://admin:password123@mongo:27017/idurar_db?authSource=admin"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  namespace: idurar-prod
+spec:
+  selector:
+    app: backend
+  ports:
+    - port: 80       # cluster ke andar jo port dikhega
+      targetPort: 8888
+  type: ClusterIP
