@@ -65,7 +65,7 @@ export default function IdurarOs() {
     return (
       <>
       <h1 style={{textAlign:'center', color:'red'}}>
-        🚀 CI/CD — Hello World!
+        🚀 CI/CD — MR Softwares!
       </h1>
 
       <Localization>
