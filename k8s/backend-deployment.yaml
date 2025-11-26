@@ -40,6 +40,6 @@ spec:
   selector:
     app: backend
   ports:
-    - port: 80       # cluster ke andar jo port dikhega
+    - port: 80    
       targetPort: 8888
   type: ClusterIP
